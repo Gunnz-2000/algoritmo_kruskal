@@ -1355,3 +1355,188 @@ body {
         display: none;
     }
 }
+
+/* ==========================================
+   FOOTER STYLES
+   ========================================== */
+
+.app-footer {
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    color: white;
+    padding: var(--space-6) 0;
+    margin-top: var(--space-8);
+    border-top: 1px solid var(--primary-500);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-8);
+    align-items: center;
+}
+
+.university-section h3 {
+    color: var(--secondary-100);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: var(--space-4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.university-details {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.university-logo {
+    flex-shrink: 0;
+}
+
+.logo-placeholder {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--secondary-100) 0%, var(--secondary-200) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 3px solid var(--primary-400);
+}
+
+.logo-placeholder i {
+    font-size: 2rem;
+    color: var(--primary-600);
+}
+
+.university-text h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    color: white;
+    line-height: 1.3;
+}
+
+.university-text p {
+    color: var(--secondary-200);
+    margin-bottom: var(--space-2);
+    font-size: 0.95rem;
+}
+
+.university-text p:last-child {
+    margin-bottom: 0;
+}
+
+.motto {
+    font-style: italic;
+    font-size: 0.9rem !important;
+    color: var(--secondary-300) !important;
+    border-left: 3px solid var(--secondary-400);
+    padding-left: var(--space-3);
+    margin-top: var(--space-3) !important;
+}
+
+.project-info {
+    text-align: right;
+}
+
+.project-description {
+    color: var(--secondary-200);
+    font-size: 0.95rem;
+    margin-bottom: var(--space-3);
+    line-height: 1.5;
+}
+
+.tech-stack {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    margin: 0;
+}
+
+.tech-stack i {
+    font-size: 1.5rem;
+    color: var(--secondary-300);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tech-stack i:hover {
+    color: var(--secondary-100);
+    transform: translateY(-2px);
+}
+
+/* Mobile Footer Styles */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+        text-align: center;
+    }
+    
+    .university-details {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .university-logo {
+        margin-bottom: var(--space-3);
+    }
+    
+    .logo-placeholder {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .logo-placeholder i {
+        font-size: 1.8rem;
+    }
+    
+    .university-text h4 {
+        font-size: 1.2rem;
+    }
+    
+    .project-info {
+        text-align: center;
+    }
+    
+    .tech-stack {
+        justify-content: center;
+    }
+    
+    .tech-stack i {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-footer {
+        padding: var(--space-5) 0;
+    }
+    
+    .footer-content {
+        padding: 0 var(--space-3);
+        gap: var(--space-5);
+    }
+    
+    .university-text h4 {
+        font-size: 1.1rem;
+    }
+    
+    .university-text p {
+        font-size: 0.9rem;
+    }
+    
+    .motto {
+        font-size: 0.85rem !important;
+    }
+    
+    .project-description {
+        font-size: 0.9rem;
+    }
+}

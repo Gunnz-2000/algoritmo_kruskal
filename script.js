@@ -736,6 +736,12 @@ class KruskalVisualizer {
             case 'medium10':
                 this.loadMedium10Graph();
                 break;
+            case 'example11':
+                this.loadExample11Graph();
+                break;
+            case 'example12':
+                this.loadExample12Graph();
+                break;
         }
         
         this.renderGraph();
@@ -872,7 +878,117 @@ class KruskalVisualizer {
         ];
     }
 
+    loadExample11Graph() {
+        // Complex 11-node graph based on the provided example
+        const positions = [
+            { x: 150, y: 80, label: 'J' },    // Top left
+            { x: 300, y: 80, label: 'I' },    // Top center
+            { x: 450, y: 80, label: 'H' },    // Top right
+            { x: 150, y: 180, label: 'K' },   // Center left
+            { x: 300, y: 160, label: 'A' },   // Center
+            { x: 150, y: 280, label: 'C' },   // Center-left bottom
+            { x: 300, y: 280, label: 'B' },   // Center bottom
+            { x: 450, y: 200, label: 'G' },   // Center right
+            { x: 100, y: 380, label: 'D' },   // Bottom left
+            { x: 250, y: 380, label: 'E' },   // Bottom center
+            { x: 400, y: 380, label: 'F' }    // Bottom right
+        ];
+        
+        positions.forEach((pos, index) => {
+            const node = {
+                id: `node_${index}`,
+                x: pos.x,
+                y: pos.y,
+                label: pos.label
+            };
+            this.nodes.set(node.id, node);
+        });
+        
+        // Create the exact graph from the description
+        this.edges = [
+            // Based on the provided edge list
+            { id: 'edge_0', source: this.nodes.get('node_0'), target: this.nodes.get('node_1'), weight: 10 }, // J-I
+            { id: 'edge_1', source: this.nodes.get('node_0'), target: this.nodes.get('node_4'), weight: 12 }, // J-A
+            { id: 'edge_2', source: this.nodes.get('node_0'), target: this.nodes.get('node_3'), weight: 8 },  // J-K
+            { id: 'edge_3', source: this.nodes.get('node_1'), target: this.nodes.get('node_4'), weight: 6 },  // I-A
+            { id: 'edge_4', source: this.nodes.get('node_1'), target: this.nodes.get('node_2'), weight: 3 },  // I-H
+            { id: 'edge_5', source: this.nodes.get('node_2'), target: this.nodes.get('node_4'), weight: 10 }, // H-A
+            { id: 'edge_6', source: this.nodes.get('node_2'), target: this.nodes.get('node_7'), weight: 7 },  // H-G
+            { id: 'edge_7', source: this.nodes.get('node_4'), target: this.nodes.get('node_3'), weight: 3 },  // A-K
+            { id: 'edge_8', source: this.nodes.get('node_4'), target: this.nodes.get('node_6'), weight: 8 },  // A-B
+            { id: 'edge_9', source: this.nodes.get('node_4'), target: this.nodes.get('node_7'), weight: 9 },  // A-G
+            { id: 'edge_10', source: this.nodes.get('node_3'), target: this.nodes.get('node_5'), weight: 5 }, // K-C
+            { id: 'edge_11', source: this.nodes.get('node_3'), target: this.nodes.get('node_6'), weight: 7 }, // K-B
+            { id: 'edge_12', source: this.nodes.get('node_5'), target: this.nodes.get('node_6'), weight: 10 }, // C-B
+            { id: 'edge_13', source: this.nodes.get('node_5'), target: this.nodes.get('node_8'), weight: 9 },  // C-D
+            { id: 'edge_14', source: this.nodes.get('node_6'), target: this.nodes.get('node_9'), weight: 2 },  // B-E
+            { id: 'edge_15', source: this.nodes.get('node_8'), target: this.nodes.get('node_9'), weight: 13 }, // D-E
+            { id: 'edge_16', source: this.nodes.get('node_8'), target: this.nodes.get('node_10'), weight: 12 }, // D-F
+            { id: 'edge_17', source: this.nodes.get('node_9'), target: this.nodes.get('node_10'), weight: 10 }, // E-F
+            { id: 'edge_18', source: this.nodes.get('node_9'), target: this.nodes.get('node_7'), weight: 6 },  // E-G
+            { id: 'edge_19', source: this.nodes.get('node_10'), target: this.nodes.get('node_7'), weight: 8 }  // F-G
+        ];
+    }
 
+    loadExample12Graph() {
+        // Grid-based 12-node graph in a 3x4 structure
+        const positions = [
+            { x: 200, y: 80, label: 'A' },    // Row 1 - Top
+            { x: 300, y: 80, label: 'B' },
+            { x: 400, y: 80, label: 'C' },
+            { x: 200, y: 160, label: 'D' },   // Row 2
+            { x: 300, y: 160, label: 'E' },   // Center hub
+            { x: 400, y: 160, label: 'F' },
+            { x: 200, y: 240, label: 'G' },   // Row 3
+            { x: 300, y: 240, label: 'H' },   // Bottom hub
+            { x: 400, y: 240, label: 'I' },
+            { x: 200, y: 320, label: 'J' },   // Row 4 - Bottom
+            { x: 300, y: 320, label: 'K' },
+            { x: 400, y: 320, label: 'L' }
+        ];
+        
+        positions.forEach((pos, index) => {
+            const node = {
+                id: `node_${index}`,
+                x: pos.x,
+                y: pos.y,
+                label: pos.label
+            };
+            this.nodes.set(node.id, node);
+        });
+        
+        // Create the exact grid graph from the description
+        this.edges = [
+            // Horizontal edges
+            { id: 'edge_0', source: this.nodes.get('node_0'), target: this.nodes.get('node_1'), weight: 3 },  // A-B
+            { id: 'edge_1', source: this.nodes.get('node_1'), target: this.nodes.get('node_2'), weight: 4 },  // B-C
+            { id: 'edge_2', source: this.nodes.get('node_3'), target: this.nodes.get('node_4'), weight: 4 },  // D-E
+            { id: 'edge_3', source: this.nodes.get('node_4'), target: this.nodes.get('node_5'), weight: 3 },  // E-F
+            { id: 'edge_4', source: this.nodes.get('node_6'), target: this.nodes.get('node_7'), weight: 8 },  // G-H
+            { id: 'edge_5', source: this.nodes.get('node_7'), target: this.nodes.get('node_8'), weight: 8 },  // H-I
+            { id: 'edge_6', source: this.nodes.get('node_9'), target: this.nodes.get('node_10'), weight: 5 }, // J-K
+            { id: 'edge_7', source: this.nodes.get('node_10'), target: this.nodes.get('node_11'), weight: 2 }, // K-L
+            
+            // Vertical edges
+            { id: 'edge_8', source: this.nodes.get('node_0'), target: this.nodes.get('node_3'), weight: 10 }, // A-D
+            { id: 'edge_9', source: this.nodes.get('node_3'), target: this.nodes.get('node_6'), weight: 4 },  // D-G
+            { id: 'edge_10', source: this.nodes.get('node_6'), target: this.nodes.get('node_9'), weight: 3 }, // G-J
+            { id: 'edge_11', source: this.nodes.get('node_1'), target: this.nodes.get('node_4'), weight: 9 }, // B-E
+            { id: 'edge_12', source: this.nodes.get('node_4'), target: this.nodes.get('node_7'), weight: 2 }, // E-H
+            { id: 'edge_13', source: this.nodes.get('node_7'), target: this.nodes.get('node_10'), weight: 5 }, // H-K
+            { id: 'edge_14', source: this.nodes.get('node_2'), target: this.nodes.get('node_5'), weight: 5 }, // C-F
+            { id: 'edge_15', source: this.nodes.get('node_5'), target: this.nodes.get('node_8'), weight: 6 }, // F-I
+            { id: 'edge_16', source: this.nodes.get('node_8'), target: this.nodes.get('node_11'), weight: 4 }, // I-L
+            
+            // Diagonal edges
+            { id: 'edge_17', source: this.nodes.get('node_0'), target: this.nodes.get('node_4'), weight: 2 }, // A-E (top-left to center)
+            { id: 'edge_18', source: this.nodes.get('node_2'), target: this.nodes.get('node_4'), weight: 6 }, // C-E (top-right to center)
+            { id: 'edge_19', source: this.nodes.get('node_6'), target: this.nodes.get('node_4'), weight: 6 }, // G-E (bottom-left to center)
+            { id: 'edge_20', source: this.nodes.get('node_8'), target: this.nodes.get('node_4'), weight: 6 }, // I-E (bottom-right to center)
+            { id: 'edge_21', source: this.nodes.get('node_9'), target: this.nodes.get('node_7'), weight: 3 }, // J-H (bottom-left to middle-bottom)
+            { id: 'edge_22', source: this.nodes.get('node_11'), target: this.nodes.get('node_7'), weight: 7 }  // L-H (bottom-right to middle-bottom)
+        ];
+    }
 
     // MST View Toggle Functions
     enableMSTButtons() {

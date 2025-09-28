@@ -733,8 +733,8 @@ class KruskalVisualizer {
             case 'complex':
                 this.loadComplexGraph();
                 break;
-            case 'supercomplex':
-                this.loadSuperComplexGraph();
+            case 'medium10':
+                this.loadMedium10Graph();
                 break;
         }
         
@@ -810,25 +810,19 @@ class KruskalVisualizer {
         ];
     }
 
-    loadSuperComplexGraph() {
-        // Super complex 16-node graph in a grid layout
+    loadMedium10Graph() {
+        // Medium complexity 10-node graph in a pentagon-like structure
         const positions = [
-            { x: 100, y: 60, label: 'A' },
-            { x: 200, y: 60, label: 'B' },
-            { x: 300, y: 60, label: 'C' },
-            { x: 400, y: 60, label: 'D' },
-            { x: 500, y: 60, label: 'E' },
-            { x: 600, y: 60, label: 'F' },
-            { x: 700, y: 60, label: 'G' },
-            { x: 100, y: 160, label: 'H' },
-            { x: 200, y: 160, label: 'I' },
-            { x: 300, y: 160, label: 'J' },
-            { x: 400, y: 160, label: 'K' },
-            { x: 500, y: 160, label: 'L' },
-            { x: 600, y: 160, label: 'M' },
-            { x: 700, y: 160, label: 'N' },
-            { x: 350, y: 260, label: 'O' },
-            { x: 450, y: 260, label: 'P' }
+            { x: 300, y: 80, label: 'A' },    // Top center
+            { x: 450, y: 150, label: 'B' },   // Top right
+            { x: 450, y: 250, label: 'C' },   // Middle right
+            { x: 300, y: 320, label: 'D' },   // Bottom center
+            { x: 150, y: 250, label: 'E' },   // Middle left
+            { x: 150, y: 150, label: 'F' },   // Top left
+            { x: 200, y: 120, label: 'G' },   // Inner top left
+            { x: 400, y: 120, label: 'H' },   // Inner top right
+            { x: 400, y: 210, label: 'I' },   // Inner middle right
+            { x: 200, y: 210, label: 'J' }    // Inner middle left
         ];
         
         positions.forEach((pos, index) => {
@@ -841,61 +835,113 @@ class KruskalVisualizer {
             this.nodes.set(node.id, node);
         });
         
-        // Create a complex network with many edges
+        // Create a well-connected network with moderate complexity
         this.edges = [
-            // Row 1 connections
-            { id: 'edge_0', source: this.nodes.get('node_0'), target: this.nodes.get('node_1'), weight: 2 },
-            { id: 'edge_1', source: this.nodes.get('node_1'), target: this.nodes.get('node_2'), weight: 3 },
-            { id: 'edge_2', source: this.nodes.get('node_2'), target: this.nodes.get('node_3'), weight: 1 },
-            { id: 'edge_3', source: this.nodes.get('node_3'), target: this.nodes.get('node_4'), weight: 4 },
+            // Outer ring connections
+            { id: 'edge_0', source: this.nodes.get('node_0'), target: this.nodes.get('node_1'), weight: 3 },
+            { id: 'edge_1', source: this.nodes.get('node_1'), target: this.nodes.get('node_2'), weight: 2 },
+            { id: 'edge_2', source: this.nodes.get('node_2'), target: this.nodes.get('node_3'), weight: 4 },
+            { id: 'edge_3', source: this.nodes.get('node_3'), target: this.nodes.get('node_4'), weight: 3 },
             { id: 'edge_4', source: this.nodes.get('node_4'), target: this.nodes.get('node_5'), weight: 2 },
-            { id: 'edge_5', source: this.nodes.get('node_5'), target: this.nodes.get('node_6'), weight: 3 },
+            { id: 'edge_5', source: this.nodes.get('node_5'), target: this.nodes.get('node_0'), weight: 4 },
             
-            // Row 2 connections
-            { id: 'edge_6', source: this.nodes.get('node_7'), target: this.nodes.get('node_8'), weight: 1 },
-            { id: 'edge_7', source: this.nodes.get('node_8'), target: this.nodes.get('node_9'), weight: 4 },
-            { id: 'edge_8', source: this.nodes.get('node_9'), target: this.nodes.get('node_10'), weight: 2 },
-            { id: 'edge_9', source: this.nodes.get('node_10'), target: this.nodes.get('node_11'), weight: 3 },
-            { id: 'edge_10', source: this.nodes.get('node_11'), target: this.nodes.get('node_12'), weight: 1 },
-            { id: 'edge_11', source: this.nodes.get('node_12'), target: this.nodes.get('node_13'), weight: 2 },
+            // Inner connections
+            { id: 'edge_6', source: this.nodes.get('node_6'), target: this.nodes.get('node_7'), weight: 1 },
+            { id: 'edge_7', source: this.nodes.get('node_7'), target: this.nodes.get('node_8'), weight: 3 },
+            { id: 'edge_8', source: this.nodes.get('node_8'), target: this.nodes.get('node_9'), weight: 2 },
+            { id: 'edge_9', source: this.nodes.get('node_9'), target: this.nodes.get('node_6'), weight: 4 },
             
-            // Vertical connections between rows
-            { id: 'edge_12', source: this.nodes.get('node_0'), target: this.nodes.get('node_7'), weight: 3 },
-            { id: 'edge_13', source: this.nodes.get('node_1'), target: this.nodes.get('node_8'), weight: 2 },
-            { id: 'edge_14', source: this.nodes.get('node_2'), target: this.nodes.get('node_9'), weight: 4 },
-            { id: 'edge_15', source: this.nodes.get('node_3'), target: this.nodes.get('node_10'), weight: 1 },
-            { id: 'edge_16', source: this.nodes.get('node_4'), target: this.nodes.get('node_11'), weight: 3 },
-            { id: 'edge_17', source: this.nodes.get('node_5'), target: this.nodes.get('node_12'), weight: 2 },
-            { id: 'edge_18', source: this.nodes.get('node_6'), target: this.nodes.get('node_13'), weight: 4 },
+            // Connections between outer and inner rings
+            { id: 'edge_10', source: this.nodes.get('node_0'), target: this.nodes.get('node_6'), weight: 2 },
+            { id: 'edge_11', source: this.nodes.get('node_0'), target: this.nodes.get('node_7'), weight: 3 },
+            { id: 'edge_12', source: this.nodes.get('node_1'), target: this.nodes.get('node_7'), weight: 1 },
+            { id: 'edge_13', source: this.nodes.get('node_1'), target: this.nodes.get('node_8'), weight: 4 },
+            { id: 'edge_14', source: this.nodes.get('node_2'), target: this.nodes.get('node_8'), weight: 2 },
+            { id: 'edge_15', source: this.nodes.get('node_2'), target: this.nodes.get('node_9'), weight: 3 },
+            { id: 'edge_16', source: this.nodes.get('node_3'), target: this.nodes.get('node_9'), weight: 1 },
+            { id: 'edge_17', source: this.nodes.get('node_4'), target: this.nodes.get('node_9'), weight: 2 },
+            { id: 'edge_18', source: this.nodes.get('node_4'), target: this.nodes.get('node_6'), weight: 4 },
+            { id: 'edge_19', source: this.nodes.get('node_5'), target: this.nodes.get('node_6'), weight: 3 },
             
-            // Diagonal connections
-            { id: 'edge_19', source: this.nodes.get('node_0'), target: this.nodes.get('node_8'), weight: 5 },
-            { id: 'edge_20', source: this.nodes.get('node_1'), target: this.nodes.get('node_9'), weight: 3 },
-            { id: 'edge_21', source: this.nodes.get('node_2'), target: this.nodes.get('node_10'), weight: 2 },
-            { id: 'edge_22', source: this.nodes.get('node_3'), target: this.nodes.get('node_11'), weight: 4 },
-            { id: 'edge_23', source: this.nodes.get('node_4'), target: this.nodes.get('node_12'), weight: 1 },
-            { id: 'edge_24', source: this.nodes.get('node_5'), target: this.nodes.get('node_13'), weight: 3 },
-            
-            // Connections to bottom nodes
-            { id: 'edge_25', source: this.nodes.get('node_8'), target: this.nodes.get('node_14'), weight: 2 },
-            { id: 'edge_26', source: this.nodes.get('node_9'), target: this.nodes.get('node_14'), weight: 3 },
-            { id: 'edge_27', source: this.nodes.get('node_10'), target: this.nodes.get('node_14'), weight: 1 },
-            { id: 'edge_28', source: this.nodes.get('node_11'), target: this.nodes.get('node_15'), weight: 2 },
-            { id: 'edge_29', source: this.nodes.get('node_12'), target: this.nodes.get('node_15'), weight: 4 },
-            { id: 'edge_30', source: this.nodes.get('node_13'), target: this.nodes.get('node_15'), weight: 3 },
-            { id: 'edge_31', source: this.nodes.get('node_14'), target: this.nodes.get('node_15'), weight: 2 },
-            
-            // Additional cross-connections for complexity
-            { id: 'edge_32', source: this.nodes.get('node_1'), target: this.nodes.get('node_11'), weight: 6 },
-            { id: 'edge_33', source: this.nodes.get('node_2'), target: this.nodes.get('node_12'), weight: 5 },
-            { id: 'edge_34', source: this.nodes.get('node_7'), target: this.nodes.get('node_13'), weight: 4 },
-            { id: 'edge_35', source: this.nodes.get('node_0'), target: this.nodes.get('node_6'), weight: 7 },
-            { id: 'edge_36', source: this.nodes.get('node_6'), target: this.nodes.get('node_7'), weight: 3 },
-            { id: 'edge_37', source: this.nodes.get('node_3'), target: this.nodes.get('node_14'), weight: 2 },
-            { id: 'edge_38', source: this.nodes.get('node_4'), target: this.nodes.get('node_15'), weight: 1 }
+            // Additional cross-connections for more interesting MST
+            { id: 'edge_20', source: this.nodes.get('node_0'), target: this.nodes.get('node_2'), weight: 5 },
+            { id: 'edge_21', source: this.nodes.get('node_1'), target: this.nodes.get('node_3'), weight: 6 },
+            { id: 'edge_22', source: this.nodes.get('node_2'), target: this.nodes.get('node_4'), weight: 4 },
+            { id: 'edge_23', source: this.nodes.get('node_3'), target: this.nodes.get('node_5'), weight: 5 },
+            { id: 'edge_24', source: this.nodes.get('node_4'), target: this.nodes.get('node_0'), weight: 3 }
         ];
     }
 
+
+    loadMediumGraph() {
+        // Medium complexity 12-node graph in a 3x4 grid layout
+        const positions = [
+            { x: 150, y: 80, label: 'A' },
+            { x: 300, y: 80, label: 'B' },
+            { x: 450, y: 80, label: 'C' },
+            { x: 600, y: 80, label: 'D' },
+            { x: 150, y: 180, label: 'E' },
+            { x: 300, y: 180, label: 'F' },
+            { x: 450, y: 180, label: 'G' },
+            { x: 600, y: 180, label: 'H' },
+            { x: 150, y: 280, label: 'I' },
+            { x: 300, y: 280, label: 'J' },
+            { x: 450, y: 280, label: 'K' },
+            { x: 600, y: 280, label: 'L' }
+        ];
+        
+        positions.forEach((pos, index) => {
+            const node = {
+                id: `node_${index}`,
+                x: pos.x,
+                y: pos.y,
+                label: pos.label
+            };
+            this.nodes.set(node.id, node);
+        });
+        
+        // Create a well-connected network with moderate complexity
+        this.edges = [
+            // Row 1 horizontal connections
+            { id: 'edge_0', source: this.nodes.get('node_0'), target: this.nodes.get('node_1'), weight: 3 },
+            { id: 'edge_1', source: this.nodes.get('node_1'), target: this.nodes.get('node_2'), weight: 2 },
+            { id: 'edge_2', source: this.nodes.get('node_2'), target: this.nodes.get('node_3'), weight: 4 },
+            
+            // Row 2 horizontal connections
+            { id: 'edge_3', source: this.nodes.get('node_4'), target: this.nodes.get('node_5'), weight: 1 },
+            { id: 'edge_4', source: this.nodes.get('node_5'), target: this.nodes.get('node_6'), weight: 3 },
+            { id: 'edge_5', source: this.nodes.get('node_6'), target: this.nodes.get('node_7'), weight: 2 },
+            
+            // Row 3 horizontal connections
+            { id: 'edge_6', source: this.nodes.get('node_8'), target: this.nodes.get('node_9'), weight: 4 },
+            { id: 'edge_7', source: this.nodes.get('node_9'), target: this.nodes.get('node_10'), weight: 1 },
+            { id: 'edge_8', source: this.nodes.get('node_10'), target: this.nodes.get('node_11'), weight: 3 },
+            
+            // Vertical connections between rows
+            { id: 'edge_9', source: this.nodes.get('node_0'), target: this.nodes.get('node_4'), weight: 2 },
+            { id: 'edge_10', source: this.nodes.get('node_1'), target: this.nodes.get('node_5'), weight: 4 },
+            { id: 'edge_11', source: this.nodes.get('node_2'), target: this.nodes.get('node_6'), weight: 1 },
+            { id: 'edge_12', source: this.nodes.get('node_3'), target: this.nodes.get('node_7'), weight: 3 },
+            { id: 'edge_13', source: this.nodes.get('node_4'), target: this.nodes.get('node_8'), weight: 2 },
+            { id: 'edge_14', source: this.nodes.get('node_5'), target: this.nodes.get('node_9'), weight: 4 },
+            { id: 'edge_15', source: this.nodes.get('node_6'), target: this.nodes.get('node_10'), weight: 1 },
+            { id: 'edge_16', source: this.nodes.get('node_7'), target: this.nodes.get('node_11'), weight: 3 },
+            
+            // Diagonal connections for additional complexity
+            { id: 'edge_17', source: this.nodes.get('node_0'), target: this.nodes.get('node_5'), weight: 5 },
+            { id: 'edge_18', source: this.nodes.get('node_1'), target: this.nodes.get('node_6'), weight: 2 },
+            { id: 'edge_19', source: this.nodes.get('node_2'), target: this.nodes.get('node_7'), weight: 4 },
+            { id: 'edge_20', source: this.nodes.get('node_4'), target: this.nodes.get('node_9'), weight: 3 },
+            { id: 'edge_21', source: this.nodes.get('node_5'), target: this.nodes.get('node_10'), weight: 2 },
+            { id: 'edge_22', source: this.nodes.get('node_6'), target: this.nodes.get('node_11'), weight: 4 },
+            
+            // Cross-connections for more interesting MST
+            { id: 'edge_23', source: this.nodes.get('node_0'), target: this.nodes.get('node_2'), weight: 6 },
+            { id: 'edge_24', source: this.nodes.get('node_1'), target: this.nodes.get('node_3'), weight: 5 },
+            { id: 'edge_25', source: this.nodes.get('node_8'), target: this.nodes.get('node_10'), weight: 3 },
+            { id: 'edge_26', source: this.nodes.get('node_9'), target: this.nodes.get('node_11'), weight: 2 }
+        ];
+    }
 
     // MST View Toggle Functions
     enableMSTButtons() {

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo de Kruskal - Árbol de Expansión Mínima</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation Header -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <div class="brand-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h1>Algoritmo de Kruskal</h1>
+                        <span class="brand-subtitle">Visualizador de Árbol de Expansión Mínima</span>
+                    </div>
+                </div>
+                <div class="nav-actions">
+                    <button class="nav-btn" id="helpBtn">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Ayuda</span>
+                    </button>
+                    <button class="nav-btn" id="infoBtn">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Acerca de</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-edit"></i>
+                        <span>Constructor de Grafo</span>
+                    </h3>
+                    <div class="button-group">
+                        <button id="addNode" class="action-btn primary">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Agregar Nodo</span>
+                        </button>
+                        <button id="addEdge" class="action-btn secondary">
+                            <i class="fas fa-link"></i>
+                            <span>Agregar Arista</span>
+                        </button>
+                        <button id="clearGraph" class="action-btn danger">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>Limpiar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Algoritmo</span>
+                    </h3>
+                    <div class="button-group">
+                        <button id="runKruskal" class="action-btn success">
+                            <i class="fas fa-rocket"></i>
+                            <span>Ejecutar Kruskal</span>
+                        </button>
+                        <button id="stepByStep" class="action-btn info">
+                            <i class="fas fa-step-forward"></i>
+                            <span>Paso a Paso</span>
+                        </button>
+                        <button id="reset" class="action-btn warning">
+                            <i class="fas fa-undo"></i>
+                            <span>Reiniciar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-eye"></i>
+                        <span>Opciones de Vista</span>
+                    </h3>
+                    <button id="toggleMST" class="view-toggle" disabled>
+                        <i class="fas fa-eye"></i>
+                        <span>Mostrar Solo MST</span>
+                    </button>
+                    <button id="exitMode" class="action-btn danger" style="display: none;">
+                        <i class="fas fa-times"></i>
+                        <span>Salir del Modo</span>
+                    </button>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Ejemplos</span>
+                    </h3>
+                    <div class="select-wrapper">
+                        <select id="exampleGraphs" class="modern-select">
+                            <option value="">Elegir ejemplo...</option>
+                            <option value="simple">Grafo Simple (4 nodos)</option>
+                            <option value="complex">Grafo Complejo (6 nodos)</option>
+                            <option value="supercomplex">Súper Complejo (16 nodos)</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Graph Visualization -->
+                <section class="graph-section">
+                    <div class="section-header">
+                        <div class="header-left">
+                            <h2 class="section-title-main">
+                                <i class="fas fa-network-wired"></i>
+                                Visualización del Grafo
+                            </h2>
+                        </div>
+                        <div class="header-right">
+                            <div class="stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-circle"></i>
+                                    <span id="nodeCount">0</span>
+                                    <label>Nodos</label>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-link"></i>
+                                    <span id="edgeCount">0</span>
+                                    <label>Aristas</label>
+                                </div>
+                            </div>
+                            <!-- Mobile Quick Actions -->
+                            <div class="mobile-quick-actions">
+                                <button id="mobileStepByStep" class="quick-action-btn">
+                                    <i class="fas fa-step-forward"></i>
+                                    <span>Paso</span>
+                                </button>
+                                <button id="mobileReset" class="quick-action-btn">
+                                    <i class="fas fa-undo"></i>
+                                    <span>Reiniciar</span>
+                                </button>
+                                <button id="mobileToggleMST" class="quick-action-btn" disabled>
+                                    <i class="fas fa-eye"></i>
+                                    <span>MST</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <svg id="graphSvg" class="graph-svg"></svg>
+                        <div class="graph-overlay" id="graphOverlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-mouse-pointer"></i>
+                                <p>Haz clic para agregar nodos</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Results Panel -->
+                <section class="results-section">
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="card-header">
+                                <i class="fas fa-info-circle"></i>
+                                <h3>Estado del Algoritmo</h3>
+                            </div>
+                            <div class="card-content">
+                                <div id="algorithmStatus" class="status-info">
+                                    <p>Ready to run Kruskal's algorithm</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="card-header">
+                                <i class="fas fa-calculator"></i>
+                                <h3>Resultados</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="metric">
+                                    <div class="metric-value" id="totalWeight">-</div>
+                                    <div class="metric-label">Peso Total</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value" id="mstEdges">-</div>
+                                    <div class="metric-label">Aristas MST</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-card steps-card">
+                            <div class="card-header">
+                                <i class="fas fa-list-ol"></i>
+                                <h3>Pasos del Algoritmo</h3>
+                            </div>
+                            <div class="card-content">
+                                <div id="algorithmSteps" class="steps-container">
+                                    <div class="step-placeholder">
+                                        <i class="fas fa-play"></i>
+                                        <p>Haz clic en "Paso a Paso" para ver el algoritmo en acción</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile Floating Action Button -->
+    <div id="mobileFab" class="mobile-fab">
+        <button id="fabToggle" class="fab-main">
+            <i class="fas fa-plus"></i>
+        </button>
+        <div id="fabMenu" class="fab-menu">
+                                <button id="mobileAddNode" class="fab-item" title="Agregar Nodo">
+                <i class="fas fa-plus-circle"></i>
+            </button>
+                                <button id="mobileAddEdge" class="fab-item" title="Agregar Arista">
+                <i class="fas fa-link"></i>
+            </button>
+                                <button id="mobileRunKruskal" class="fab-item primary" title="Ejecutar Algoritmo">
+                <i class="fas fa-play"></i>
+            </button>
+            <button id="mobileClear" class="fab-item danger" title="Limpiar Grafo">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Edge Weight Modal -->
+    <div id="weightModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-weight-hanging"></i>
+                                    <h3>Peso de la Arista</h3>
+                </div>
+                <button class="modal-close" id="cancelWeight">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                                <p class="modal-description">Ingresa el peso para la arista entre los nodos:</p>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="number" id="weightInput" placeholder="Peso" min="1" max="100" value="1">
+                        <label class="input-label">Peso</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmWeight" class="modal-btn primary">
+                    <i class="fas fa-check"></i>
+                                    <span>Confirmar</span>
+                </button>
+                <button id="cancelWeight" class="modal-btn secondary">
+                    <i class="fas fa-times"></i>
+                                    <span>Cancelar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
